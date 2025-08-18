@@ -1,0 +1,41 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+.env
+
+# Pipenv lock file (keep it tracked so others can replicate exact deps)
+# Pipfile.lock
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.cache
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs / Temp
+*.log
+logs/
+*.tmp
+*.temp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# FastAPI / Application specific
+uploads/
+*.db
+*.sqlite

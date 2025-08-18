@@ -1,0 +1,39 @@
+# Default: normalize all text files to LF in repo
+* text=auto eol=lf
+
+# Explicit line endings for common text files
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Web files
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+
+# Config files
+Dockerfile text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+Pipfile text eol=lf
+Pipfile.lock text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.pyc binary
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
