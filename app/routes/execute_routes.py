@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import Dict, Any, Optional
 from ..services.workflow_service import WorkflowService
 from ..services.permission_service import PermissionService
+from ..models.trigger import Trigger
 from ..utils.enums import NodeStatus
 
 
@@ -11,7 +12,7 @@ router = APIRouter(prefix="/api", tags=["execution"])
 
 class ExecutionRequest(BaseModel):
     user_id: int
-    parameters: Optional[Dict[str, Any]] = {}
+    trigger: Optional[Trigger] = None
 
 
 class ExecutionResponse(BaseModel):
@@ -32,19 +33,19 @@ async def execute_workflow(
 ):
     """Execute a workflow"""
     try:
-        # Check execute permission
-        if not PermissionService.check_execute_permission(execution_data.user_id, workflow_id):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="You don't have permission to execute this workflow"
-            )
-        
-        # Verify workflow exists
+        # Verify workflow exists first
         workflow = WorkflowService.get_workflow_by_id(workflow_id)
         if not workflow:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Workflow not found"
+            )
+        
+        # Check execute permission
+        if not PermissionService.check_execute_permission(execution_data.user_id, workflow_id):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="You don't have permission to execute this workflow"
             )
         
         if not workflow.is_active:
@@ -53,8 +54,8 @@ async def execute_workflow(
                 detail="Cannot execute inactive workflow"
             )
         
-        # Execute the workflow
-        execution_result = WorkflowService.execute_workflow(workflow_id, execution_data.user_id)
+        # Execute the workflow with trigger
+        execution_result = WorkflowService.execute_workflow(workflow_id, execution_data.user_id, execution_data.trigger)
         
         if execution_result["success"]:
             return ExecutionResponse(

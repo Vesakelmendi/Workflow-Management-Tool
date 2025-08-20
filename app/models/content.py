@@ -55,29 +55,4 @@ class Content(BaseModel):
     updated_at: datetime = datetime.now()
 
 
-class TaskCreate(BaseModel):
-    title: str
-    description: Optional[str] = None
-    priority: Priority = Priority.MEDIUM
-    workflow_id: int
-    node_id: Optional[int] = None
-    assigned_user_id: Optional[int] = None
-    due_date: Optional[datetime] = None
 
-
-class NoteCreate(BaseModel):
-    title: str
-    content: str
-    workflow_id: int
-    node_id: Optional[int] = None
-    tags: list[str] = []
-
-
-class AttachmentCreate(BaseModel):
-    filename: str
-    file_path: str
-    file_size: int
-    mime_type: str
-    workflow_id: int
-    node_id: Optional[int] = None
-    description: Optional[str] = None

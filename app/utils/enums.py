@@ -18,3 +18,14 @@ class Priority(str, Enum):
     LOW = "LOW"
     MEDIUM = "MEDIUM"
     HIGH = "HIGH"
+
+
+class NodeType(str, Enum):
+    INIT = "INIT"
+    CONDITION = "CONDITION"
+    MODIFY_MESSAGE = "MODIFY_MESSAGE"
+    STORE_MESSAGE = "STORE_MESSAGE"
+
+
+class TriggerType(str, Enum):
+    USER_MESSAGE = "user-message"
